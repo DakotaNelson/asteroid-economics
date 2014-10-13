@@ -15,8 +15,8 @@ function res = mining_model( q, e0 )
     final_P = pvvar(P, years)-(return_cost*inital_supply);
 
 
-        function res = calc_P(q)
-            res = q;
-        end
+    function res = calc_P(q)
+        res = q;
+    end
 end
 
