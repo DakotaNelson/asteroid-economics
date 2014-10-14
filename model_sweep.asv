@@ -15,4 +15,3 @@ for i = 100:1:500 % quantity sold per year
     end
 end
 
-contour(profit)

@@ -8,7 +8,7 @@ function res = mining_model( sale_quantity, return_cost )
     discount_rate = .04; % used for FV
     
     for i= 1:years
-        I = calc_P(sale_quantity) * sale_quantity; % income
+        I = market_price(sale_quantity) * sale_quantity; % income
         E = (initial_supply - (sale_quantity*i))*storage_cost; % expenses
         P(i) = I-E; % profit for that year
     end
@@ -16,7 +16,7 @@ function res = mining_model( sale_quantity, return_cost )
     final_P = calc_pv(P, discount_rate)-(return_cost*initial_supply);
     res = final_P;
 
-    function res = calc_P(q)
+    function res = market_price(q)
         res = q;
     end
 
