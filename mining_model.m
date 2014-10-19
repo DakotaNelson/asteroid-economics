@@ -1,24 +1,27 @@
-function res = mining_model( sale_quantity, return_cost )
+function res = mining_model( initial_supply, sale_quantity, return_cost )
 %mining_model Summary of this function goes here
 %   Detailed explanation goes here
 
-    initial_supply = 500000; % kg of precious metal
+
+    %initial_supply = 1000 * 1000; % kg of precious metal
     storage_cost = 1000; % dollars per kg per year
     years = floor(initial_supply / sale_quantity); % how long it takes to sell it all
     discount_rate = .04; % used for FV
+    current_price = 40000; % current cost of gold, USD
+    current_market = 4000 * 1000; % world gold market for a year, in kg
     
+    P = zeros(1,years);
     for i= 1:years
-        I = market_price(sale_quantity) * sale_quantity; % income
+        I = market_price(sale_quantity/current_market) * current_price * sale_quantity; % income
+        % note that market_price expects input in [0-1] and returns the
+        % same, so current_market and current_price are required to
+        % make the input and output scale correctly
         E = (initial_supply - (sale_quantity*i))*storage_cost; % expenses
         P(i) = I-E; % profit for that year
     end
 
     final_P = calc_pv(P, discount_rate)-(return_cost*initial_supply);
     res = final_P;
-
-    function res = market_price(q)
-        res = q;
-    end
 
     function sum = calc_pv(fv, i)
         % calculate PV given an array of FVs and an interest rate i
