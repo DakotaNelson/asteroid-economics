@@ -1,4 +1,4 @@
-function res = mining_model( initial_supply, sale_quantity, return_cost )
+function PV = mining_model( initial_supply, sale_quantity, return_cost )
 %mining_model Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,8 +11,10 @@ function res = mining_model( initial_supply, sale_quantity, return_cost )
     current_market = 4000 * 1000; % world gold market for a year, in kg
     
     P = zeros(1,years);
+    price_modifier = market_price(sale_quantity/current_market);
+    
     for i= 1:years
-        I = market_price(sale_quantity/current_market) * current_price * sale_quantity; % income
+        I =  price_modifier * current_price * sale_quantity; % income
         % note that market_price expects input in [0-1] and returns the
         % same, so current_market and current_price are required to
         % make the input and output scale correctly
@@ -20,15 +22,16 @@ function res = mining_model( initial_supply, sale_quantity, return_cost )
         P(i) = I-E; % profit for that year
     end
 
-    final_P = calc_pv(P, discount_rate)-(return_cost*initial_supply);
-    res = final_P;
+    yearly_PV = calc_pv(P, discount_rate);
+    return_cost = (return_cost*initial_supply);
+    
+    PV = sum(yearly_PV)- return_cost;
 
-    function sum = calc_pv(fv, i)
+    function pv = calc_pv(fv, i)
         % calculate PV given an array of FVs and an interest rate i
-        sum = 0;
-        for n = 1:size(fv)
-            pv = fv(n) / (1+i)^n;
-            sum = sum + pv;
+        pv = zeros(1,length(fv));
+        for n = 1:length(fv)
+            pv(n) = fv(n) ./ (1+i).^n;
         end
     end
 end

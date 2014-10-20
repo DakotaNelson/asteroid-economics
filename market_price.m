@@ -4,6 +4,6 @@ function price = market_price(q)
     % the average price for that gold (again, as a percentage of current
     % price)
     
-    q = 2*q - 1; % scale q appropriately
-    price = 1/(exp(5*(q)) + 1);
+    q = 2*q - .5; % scale q appropriately
+    price = (1/(exp(5*(q)) + 1)) + .0759;
 end
