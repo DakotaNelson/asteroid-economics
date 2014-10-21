@@ -22,11 +22,9 @@ xlabel('Cost to Return, per kg, in thousands of USD')
 
 %%
 
-% [quantity,initial_supply] = meshgrid(100:1:5000,1:1:30);
-for i = 1:1:400 % quantity returned
+% [quantity,initial_suppd(100:1:5000,1:1:30);
+for i = 1:1:400
     for j = 1:1:400 % quantity sold per year
-        % NOTE: quantity returned must ALWAYS be greater than quantity sold
-        % per year
         profit(i,j) = mining_model(i*10000, j*10000, 10000);
     end
 end
@@ -34,3 +32,5 @@ end
 surf(profit)
 ylabel('Quantity Returned, in hundreds of kg')
 xlabel('Quantity Sold per Year, in hundreds of kg')
+
+shading interp
