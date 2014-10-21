@@ -21,10 +21,12 @@ ylabel('Quantity Sold per Year, in thousands of kg')
 xlabel('Cost to Return, per kg, in thousands of USD')
 
 %%
+clf
+clear all
 
 % [quantity,initial_suppd(100:1:5000,1:1:30);
-for i = 1:1:400
-    for j = 1:1:400 % quantity sold per year
+for i = 1:1:2000 % quantity returned per year
+    for j = 1:1:100 % quantity sold per year
         profit(i,j) = mining_model(i*10000, j*10000, 10000);
     end
 end
