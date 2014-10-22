@@ -1,15 +1,18 @@
-for i = 1:1:500 % quantity sold per year
-    profit(i) = mining_model(i*1000,10000);
+for i = 1:1:600 % quantity sold per year
+    profit(i) = mining_model(500000, i*1000, 10000);
 end
 
+profit = profit ./ (10^10); % dive by 10 billion
 plot(profit)
+ylabel('Quantity Sold per Year, in thousands of kg')
+xlabel('Profit, in tens of billions USD')
 hold on;
 refline(0,0)
 hold off;
 
 %%
 
-[quantity,cost] = meshgrid(100:1:5000,1:1:30);
+%[quantity,cost] = meshgrid(100:1:5000,1:1:30);
 for i = 100:1:500 % quantity sold per year
     for j = 1:1:30 % cost to return
         profit(i,j) = mining_model(500000, i*1000, j*1000);
