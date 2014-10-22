@@ -1,7 +1,8 @@
-function PV = mining_model( initial_supply, sale_quantity, return_cost )
+function PV = mining_model( initial_supply, sale_quantity)
 %mining_model Summary of this function goes here
 %   Detailed explanation goes here
 
+    return_cost = 10000;
 
     %initial_supply = 1000 * 1000; % kg of precious metal
     storage_cost = 1000; % dollars per kg per year
